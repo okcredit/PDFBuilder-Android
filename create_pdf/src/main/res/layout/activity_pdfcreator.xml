@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutPDFVisitActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    tools:context=".activity.PDFCreatorActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_800">
+
+        <LinearLayout
+            android:id="@+id/layoutPdfPreview"
+            android:layout_width="@dimen/pdf_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/pdf_margin_vertical"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/pdf_margin_vertical" />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutPrintPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_left"
+            android:visibility="gone"
+            app:title="Title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <tech.okcredit.create_pdf.custom.ZoomLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imagePreviewPdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey_800"
+                    android:contentDescription="@string/pdf_page_as_image"
+                    android:paddingTop="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="8dp" />
+
+            </tech.okcredit.create_pdf.custom.ZoomLayout>
+
+            <TextView
+                android:id="@+id/textViewPreviewPDFNotSupported"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_300"
+                android:gravity="center"
+                android:paddingTop="100dp"
+                android:text="@string/text_pdf_preview_not_support"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/buttonPreviousPage"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/text_previous_page"
+                android:src="@drawable/ic_left"
+                android:textColor="@color/red_800" />
+
+            <TextView
+                android:id="@+id/textViewPreviewPageNumber"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/buttonNextPage"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/text_next_page"
+                android:src="@drawable/ic_right"
+                android:textColor="@color/red_800" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSendEmail"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="@string/text_next" />
+
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/secondary_button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorBlack"
+                app:backgroundTint="@color/colorWhite"
+                app:cornerRadius="20dp"
+                app:strokeColor="@color/green_900"
+                app:strokeWidth="1dp"
+                tools:text="Button1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/primary_button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                app:cornerRadius="20dp"
+                tools:text="Button2" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewPdfGeneratingHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:text="@string/text_generating_pdf"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</FrameLayout>

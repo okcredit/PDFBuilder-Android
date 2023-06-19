@@ -1,0 +1,8 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutPDFParent"
+    android:layout_width="@dimen/pdf_width"
+    android:layout_height="@dimen/pdf_height"
+    android:paddingLeft="@dimen/pdf_margin_horizontal"
+    android:paddingTop="@dimen/pdf_margin_vertical"
+    android:paddingRight="@dimen/pdf_margin_horizontal"
+    android:paddingBottom="@dimen/pdf_margin_vertical" />
