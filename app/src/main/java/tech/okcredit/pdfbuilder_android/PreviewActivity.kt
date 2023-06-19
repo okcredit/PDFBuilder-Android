@@ -31,6 +31,7 @@ class PreviewActivity : PDFCreatorActivity() {
         super.onCreate(savedInstanceState)
 
         setTitle("Preview")
+
         enableSecondaryButton(
             primaryButtonTitle = "Download",
             secondaryButtonTitle = "Share",
@@ -145,7 +146,7 @@ class PreviewActivity : PDFCreatorActivity() {
             Color.parseColor(PDF_BILL_SEPARATOR_COLOR)
         )
 
-        for (i in 0..30) {
+        for (i in 0..10) {
             // Create 10 rows
             val tableRowView = PDFTableRowView(applicationContext)
             for (s in textInTable) {

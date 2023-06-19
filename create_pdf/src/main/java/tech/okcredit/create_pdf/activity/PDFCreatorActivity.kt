@@ -41,6 +41,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
     lateinit var buttonContainer: LinearLayout
     lateinit var primaryButton: Button
+    lateinit var pageNumberContainer: LinearLayout
     lateinit var secondaryButton: Button
     var pagePreviewBitmapList = ArrayList<Bitmap>()
     var savedPDFFile: File? = null
@@ -55,6 +56,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         layoutPrintPreview = findViewById(R.id.layoutPrintPreview)
         imageViewPDFPreview = layoutPrintPreview.findViewById(R.id.imagePreviewPdf)
         textViewPageNumber = layoutPrintPreview.findViewById(R.id.textViewPreviewPageNumber)
+        pageNumberContainer = layoutPrintPreview.findViewById(R.id.pageNumberContainer)
         textViewPreviewNotAvailable =
             layoutPrintPreview.findViewById(R.id.textViewPreviewPDFNotSupported)
         layoutPageParent.removeAllViews()
@@ -136,12 +138,17 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                     layoutPrintPreview!!.visibility = View.VISIBLE
                     selectedPreviewPage = 0
                     imageViewPDFPreview!!.setImageBitmap(pagePreviewBitmapList[selectedPreviewPage])
-                    textViewPageNumber!!.text = String.format(
-                        Locale.getDefault(),
-                        "%d OF %d",
-                        selectedPreviewPage + 1,
-                        pagePreviewBitmapList.size
-                    )
+                    if (pagePreviewBitmapList.size > 1) {
+                        textViewPageNumber!!.text = String.format(
+                            Locale.getDefault(),
+                            "%d OF %d",
+                            selectedPreviewPage + 1,
+                            pagePreviewBitmapList.size
+                        )
+                        pageNumberContainer.visibility = View.VISIBLE
+                    } else {
+                        pageNumberContainer.visibility = View.GONE
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     imageViewPDFPreview!!.visibility = View.GONE
