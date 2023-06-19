@@ -1,4 +1,4 @@
-package tech.okcredit.pdfbuilder_android.theme
+package tech.okcredit.pdfbuilder_android.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -8,10 +8,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ai.billinguicomponents.R
-import merechant.okcredit.resources.theme.green_primary
-import merechant.okcredit.resources.theme.grey600
-import merechant.okcredit.resources.theme.grey900
-import merechant.okcredit.resources.theme.white
 
 val textLineSpacing1 = (-0.05).sp
 val textLineSpacing2 = 0.sp
@@ -224,22 +220,22 @@ val OkcTypography = Typography(
 )
 
 val Typography.subtitle3: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.subtitle3
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.subtitle3
 
 val Typography.subtitle4: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.subtitle4
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.subtitle4
 
 val Typography.caption1: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.caption1
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.caption1
 
 val Typography.caption2: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.caption2
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.caption2
 
 val Typography.caption3: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.caption3
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.caption3
 
 val Typography.caption3Normal: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.caption3Normal
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.caption3Normal
 
 val Typography.caption4: TextStyle
-    get() = tech.okcredit.pdfbuilder_android.theme.caption4
+    get() = tech.okcredit.pdfbuilder_android.ui.theme.caption4

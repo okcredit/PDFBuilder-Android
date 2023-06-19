@@ -2,4 +2,14 @@
 <resources>
 
     <style name="Theme.PDFBuilderAndroid" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="ActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#1c873b</item>
+        <item name="colorAccent">#e6f4e9</item>
+
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    </style>
+
 </resources>

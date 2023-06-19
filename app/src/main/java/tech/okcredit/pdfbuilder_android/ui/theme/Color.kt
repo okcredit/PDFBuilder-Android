@@ -1,4 +1,4 @@
-package merechant.okcredit.resources.theme
+package tech.okcredit.pdfbuilder_android.ui.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
