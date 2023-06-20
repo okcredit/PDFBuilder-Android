@@ -30,14 +30,14 @@ class PreviewActivity : PDFCreatorActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTitle("Preview")
+        setToolbarTitle("Bill Preview")
 
-        enableSecondaryButton(
+        enableCtaButtons(
             primaryButtonTitle = "Download",
-            secondaryButtonTitle = "Share",
             primaryButtonAction = {
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
             },
+            secondaryButtonTitle = "Share",
             secondaryButtonAction = {
                 Toast.makeText(this, "Download", Toast.LENGTH_SHORT).show()
             }

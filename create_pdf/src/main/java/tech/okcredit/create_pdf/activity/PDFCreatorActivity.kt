@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toolbar
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -39,10 +39,12 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var buttonNextPage: ImageButton
     lateinit var buttonPreviousPage: ImageButton
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
+    lateinit var toolbarTailIcon: ImageButton
     lateinit var buttonContainer: LinearLayout
     lateinit var primaryButton: Button
     lateinit var pageNumberContainer: LinearLayout
     lateinit var secondaryButton: Button
+    lateinit var primaryCtaButton: Button
     var pagePreviewBitmapList = ArrayList<Bitmap>()
     var savedPDFFile: File? = null
     private var heightRequiredByHeader = 0
@@ -67,30 +69,44 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         buttonEmailVisit = layoutPrintPreview.findViewById(R.id.buttonSendEmail)
         buttonEmailVisit.setOnClickListener(this)
         toolbar = layoutPrintPreview.findViewById(R.id.toolbar)
+        toolbarTailIcon = layoutPrintPreview.findViewById(R.id.toolbar_tail_icon)
         buttonContainer = layoutPrintPreview.findViewById(R.id.button_container)
         primaryButton = layoutPrintPreview.findViewById(R.id.primary_button)
         secondaryButton = layoutPrintPreview.findViewById(R.id.secondary_button)
+        primaryCtaButton = layoutPrintPreview.findViewById(R.id.primary_cta_button)
     }
 
-    fun enableSecondaryButton(
-        primaryButtonTitle: String, secondaryButtonTitle: String,
-        primaryButtonAction: () -> Unit, secondaryButtonAction: () -> Unit
+    fun enableCtaButtons(
+        primaryButtonTitle: String, primaryButtonAction: () -> Unit,
+        secondaryButtonTitle: String? = null, secondaryButtonAction: () -> Unit = {}
     ) {
-        buttonEmailVisit.visibility = View.GONE
-        buttonContainer.visibility = View.VISIBLE
+        if (secondaryButtonTitle != null) {
+            buttonEmailVisit.visibility = View.GONE
+            primaryCtaButton.visibility = View.GONE
+            buttonContainer.visibility = View.VISIBLE
 
-        primaryButton.text = primaryButtonTitle
-        primaryButton.setOnClickListener {
-            primaryButtonAction.invoke()
-        }
+            primaryButton.text = primaryButtonTitle
+            primaryButton.setOnClickListener {
+                primaryButtonAction.invoke()
+            }
 
-        secondaryButton.text = secondaryButtonTitle
-        secondaryButton.setOnClickListener {
-            secondaryButtonAction.invoke()
+            secondaryButton.text = secondaryButtonTitle
+            secondaryButton.setOnClickListener {
+                secondaryButtonAction.invoke()
+            }
+        } else {
+            buttonEmailVisit.visibility = View.GONE
+            primaryCtaButton.visibility = View.VISIBLE
+            buttonContainer.visibility = View.GONE
+
+            primaryCtaButton.text = primaryButtonTitle
+            primaryCtaButton.setOnClickListener {
+                primaryButtonAction.invoke()
+            }
         }
     }
 
-    fun setTitle(title: String) {
+    fun setToolbarTitle(title: String, @DrawableRes icon: Int? = null) {
         toolbar.visibility = View.VISIBLE
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -98,6 +114,13 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
         supportActionBar?.title = title
+
+        if (icon != null) {
+            toolbarTailIcon.visibility = View.VISIBLE
+            toolbarTailIcon.setImageResource(icon)
+        } else {
+            toolbarTailIcon.visibility = View.GONE
+        }
     }
 
     fun createPDF(fileName: String, pdfUtilListener: PDFUtilListener) {
