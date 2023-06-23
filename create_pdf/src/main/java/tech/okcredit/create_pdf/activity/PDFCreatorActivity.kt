@@ -106,7 +106,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun setToolbarTitle(title: String, @DrawableRes icon: Int? = null) {
+    fun setToolbarTitle(title: String, @DrawableRes icon: Int? = null, onIconClicked: () -> Unit = {}) {
         toolbar.visibility = View.VISIBLE
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -118,6 +118,9 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         if (icon != null) {
             toolbarTailIcon.visibility = View.VISIBLE
             toolbarTailIcon.setImageResource(icon)
+            toolbarTailIcon.setOnClickListener {
+                onIconClicked.invoke()
+            }
         } else {
             toolbarTailIcon.visibility = View.GONE
         }
