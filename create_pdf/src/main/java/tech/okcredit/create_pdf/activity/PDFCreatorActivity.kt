@@ -77,8 +77,8 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun enableCtaButtons(
-        primaryButtonTitle: String, primaryButtonAction: () -> Unit,
-        secondaryButtonTitle: String? = null, secondaryButtonAction: () -> Unit = {}
+        primaryButtonTitle: String, primaryButtonAction: (savedPDFFile: File?) -> Unit,
+        secondaryButtonTitle: String? = null, secondaryButtonAction: (savedPDFFile: File?) -> Unit = {}
     ) {
         if (secondaryButtonTitle != null) {
             buttonEmailVisit.visibility = View.GONE
@@ -87,12 +87,12 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
 
             primaryButton.text = primaryButtonTitle
             primaryButton.setOnClickListener {
-                primaryButtonAction.invoke()
+                primaryButtonAction.invoke(savedPDFFile)
             }
 
             secondaryButton.text = secondaryButtonTitle
             secondaryButton.setOnClickListener {
-                secondaryButtonAction.invoke()
+                secondaryButtonAction.invoke(savedPDFFile)
             }
         } else {
             buttonEmailVisit.visibility = View.GONE
@@ -101,7 +101,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
 
             primaryCtaButton.text = primaryButtonTitle
             primaryCtaButton.setOnClickListener {
-                primaryButtonAction.invoke()
+                primaryButtonAction.invoke(savedPDFFile)
             }
         }
     }
