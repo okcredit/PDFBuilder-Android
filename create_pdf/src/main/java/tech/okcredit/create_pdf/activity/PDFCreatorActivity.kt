@@ -76,6 +76,10 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         primaryCtaButton = layoutPrintPreview.findViewById(R.id.primary_cta_button)
     }
 
+    fun hideNextButton() {
+        buttonEmailVisit.visibility = View.GONE
+    }
+
     fun enableCtaButtons(
         primaryButtonTitle: String, primaryButtonAction: (savedPDFFile: File?) -> Unit,
         secondaryButtonTitle: String? = null, secondaryButtonAction: (savedPDFFile: File?) -> Unit = {}
