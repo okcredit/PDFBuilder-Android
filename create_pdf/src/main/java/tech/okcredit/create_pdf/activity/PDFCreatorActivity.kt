@@ -171,7 +171,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                     if (pagePreviewBitmapList.size > 1) {
                         textViewPageNumber!!.text = String.format(
                             Locale.getDefault(),
-                            "%d OF %d",
+                            "%d of %d",
                             selectedPreviewPage + 1,
                             pagePreviewBitmapList.size
                         )
