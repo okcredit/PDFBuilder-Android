@@ -31,7 +31,7 @@ import java.util.Locale
 abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var layoutPageParent: LinearLayout
     lateinit var layoutPrintPreview: LinearLayout
-    var textViewGeneratingPDFHolder: TextView? = null
+    var textViewPdfGeneratingLoader: LinearLayout? = null
     var textViewPageNumber: TextView? = null
     var textViewPreviewNotAvailable: TextView? = null
     var imageViewPDFPreview: AppCompatImageView? = null
@@ -54,7 +54,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdfcreator)
         layoutPageParent = findViewById(R.id.layoutPdfPreview)
-        textViewGeneratingPDFHolder = findViewById(R.id.textViewPdfGeneratingHolder)
+        textViewPdfGeneratingLoader = findViewById(R.id.textViewPdfGeneratingLoader)
         layoutPrintPreview = findViewById(R.id.layoutPrintPreview)
         imageViewPDFPreview = layoutPrintPreview.findViewById(R.id.imagePreviewPdf)
         textViewPageNumber = layoutPrintPreview.findViewById(R.id.textViewPreviewPageNumber)
@@ -164,7 +164,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 try {
                     pagePreviewBitmapList.clear()
                     pagePreviewBitmapList.addAll(PDFUtil.pdfToBitmap(savedPDFFile))
-                    textViewGeneratingPDFHolder!!.visibility = View.GONE
+                    textViewPdfGeneratingLoader!!.visibility = View.GONE
                     layoutPrintPreview!!.visibility = View.VISIBLE
                     selectedPreviewPage = 0
                     imageViewPDFPreview!!.setImageBitmap(pagePreviewBitmapList[selectedPreviewPage])
