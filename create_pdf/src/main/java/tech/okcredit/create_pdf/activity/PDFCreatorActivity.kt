@@ -13,6 +13,9 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import tech.okcredit.create_pdf.R
 import tech.okcredit.create_pdf.utils.FileManager
@@ -45,6 +48,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var pageNumberContainer: LinearLayout
     lateinit var secondaryButton: Button
     lateinit var primaryCtaButton: Button
+    lateinit var composeView: ComposeView
     var pagePreviewBitmapList = ArrayList<Bitmap>()
     var savedPDFFile: File? = null
     private var heightRequiredByHeader = 0
@@ -74,6 +78,17 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         primaryButton = layoutPrintPreview.findViewById(R.id.primary_button)
         secondaryButton = layoutPrintPreview.findViewById(R.id.secondary_button)
         primaryCtaButton = layoutPrintPreview.findViewById(R.id.primary_cta_button)
+        composeView = findViewById(R.id.compose_view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        composeView.apply {
+            ViewCompositionStrategy.DisposeOnLifecycleDestroyed(lifecycle = lifecycle)
+            setContent {
+                externalComposable?.invoke()
+            }
+        }
     }
 
     fun hideNextButton() {
@@ -423,5 +438,11 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private const val TAG = "PDFCreatorActivity"
+
+        private var externalComposable: (@Composable () -> Unit)? = null
+
+        fun startWithComposable(composable: @Composable () -> Unit) {
+            externalComposable = composable
+        }
     }
 }
