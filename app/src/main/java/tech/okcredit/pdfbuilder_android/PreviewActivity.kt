@@ -51,11 +51,11 @@ class PreviewActivity : PDFCreatorActivity() {
             }
         )
 
-        startWithComposable(
+        setComposeContent(
             composable = {
                 Text(
                     text = "Hello World!",
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(50.dp),
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
