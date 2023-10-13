@@ -44,7 +44,7 @@ class PreviewActivity : PDFCreatorActivity() {
 
         hideNextButton()
 
-        setComposeContent(
+        setBottomComposeContent(
             composable = {
                 Text(
                     text = "Hello World!",

@@ -82,7 +82,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         composeView = findViewById(R.id.compose_view)
     }
 
-    fun setComposeContent(composable: @Composable () -> Unit) {
+    fun setBottomComposeContent(composable: @Composable () -> Unit) {
         composeView.apply {
             ViewCompositionStrategy.DisposeOnLifecycleDestroyed(lifecycle = lifecycle)
             setContent {
