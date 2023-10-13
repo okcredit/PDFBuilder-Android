@@ -127,14 +127,6 @@
                 android:textColor="@color/red_800" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonSendEmail"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_next"
-            android:textColor="@color/colorBlack" />
-
         <LinearLayout
             android:id="@+id/button_container"
             android:layout_width="match_parent"

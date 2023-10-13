@@ -38,7 +38,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     var textViewPageNumber: TextView? = null
     var textViewPreviewNotAvailable: TextView? = null
     var imageViewPDFPreview: AppCompatImageView? = null
-    lateinit var buttonEmailVisit: Button
     lateinit var buttonNextPage: ImageButton
     lateinit var buttonPreviousPage: ImageButton
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
@@ -71,8 +70,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         buttonNextPage.setOnClickListener(this)
         buttonPreviousPage = layoutPrintPreview.findViewById(R.id.buttonPreviousPage)
         buttonPreviousPage.setOnClickListener(this)
-        buttonEmailVisit = layoutPrintPreview.findViewById(R.id.buttonSendEmail)
-        buttonEmailVisit.setOnClickListener(this)
         toolbar = layoutPrintPreview.findViewById(R.id.toolbar)
         toolbarTailIcon = layoutPrintPreview.findViewById(R.id.toolbar_tail_icon)
         buttonContainer = layoutPrintPreview.findViewById(R.id.button_container)
@@ -91,16 +88,11 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun hideNextButton() {
-        buttonEmailVisit.visibility = View.GONE
-    }
-
     fun enableCtaButtons(
         primaryButtonTitle: String, primaryButtonAction: (savedPDFFile: File?) -> Unit,
         secondaryButtonTitle: String? = null, secondaryButtonAction: (savedPDFFile: File?) -> Unit = {}
     ) {
         if (secondaryButtonTitle != null) {
-            buttonEmailVisit.visibility = View.GONE
             primaryCtaButton.visibility = View.GONE
             buttonContainer.visibility = View.VISIBLE
 
@@ -114,7 +106,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 secondaryButtonAction.invoke(savedPDFFile)
             }
         } else {
-            buttonEmailVisit.visibility = View.GONE
             primaryCtaButton.visibility = View.VISIBLE
             buttonContainer.visibility = View.GONE
 
@@ -400,8 +391,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 selectedPreviewPage + 1,
                 pagePreviewBitmapList.size
             )
-        } else if (v === buttonEmailVisit) {
-            onNextClicked(savedPDFFile)
         }
     }
 

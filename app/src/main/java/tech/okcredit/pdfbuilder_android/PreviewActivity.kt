@@ -41,10 +41,11 @@ class PreviewActivity : PDFCreatorActivity() {
         super.onCreate(savedInstanceState)
 
         setToolbarTitle(
-            title = "Bill Preview"
+            title = "Bill Preview",
+            onBackClicked = {
+                onBackPressed()
+            }
         )
-
-        hideNextButton()
 
         setBottomUIComposeContent(
             composable = {
