@@ -40,11 +40,13 @@ class PreviewActivity : PDFCreatorActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setToolbarTitle("Bill Preview")
+        setToolbarTitle(
+            title = "Bill Preview"
+        )
 
         hideNextButton()
 
-        setComposeContent(
+        setBottomUIComposeContent(
             composable = {
                 Text(
                     text = "Hello World!",

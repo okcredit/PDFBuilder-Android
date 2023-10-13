@@ -82,7 +82,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         composeView = findViewById(R.id.compose_view)
     }
 
-    fun setComposeContent(composable: @Composable () -> Unit) {
+    fun setBottomUIComposeContent(composable: @Composable () -> Unit) {
         composeView.apply {
             ViewCompositionStrategy.DisposeOnLifecycleDestroyed(lifecycle = lifecycle)
             setContent {
@@ -125,12 +125,19 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun setToolbarTitle(title: String, @DrawableRes icon: Int? = null, onIconClicked: () -> Unit = {}) {
+    fun setToolbarTitle(
+        title: String, @DrawableRes icon: Int? = null,
+        onIconClicked: () -> Unit = {}, onBackClicked: (() -> Unit)? = null
+    ) {
         toolbar.visibility = View.VISIBLE
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
-            finish()
+            if (onBackClicked != null) {
+                onBackClicked.invoke()
+            } else {
+                onBackPressed()
+            }
         }
         supportActionBar?.title = title
 
