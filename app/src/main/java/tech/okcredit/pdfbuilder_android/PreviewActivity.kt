@@ -8,6 +8,15 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.text.HtmlCompat
 import com.ai.billinguicomponents.R
 import tech.okcredit.create_pdf.activity.PDFCreatorActivity
@@ -22,6 +31,7 @@ import tech.okcredit.create_pdf.views.basic.PDFImageView
 import tech.okcredit.create_pdf.views.basic.PDFLineSeparatorView
 import tech.okcredit.create_pdf.views.basic.PDFTextView
 import tech.okcredit.pdfbuilder_android.PdfBillConstants.PDF_BILL_SEPARATOR_COLOR
+import tech.okcredit.pdfbuilder_android.ui.theme.green_primary
 import java.io.File
 
 class PreviewActivity : PDFCreatorActivity() {
@@ -32,14 +42,21 @@ class PreviewActivity : PDFCreatorActivity() {
 
         setToolbarTitle("Bill Preview")
 
-        enableCtaButtons(
-            primaryButtonTitle = "Download",
-            primaryButtonAction = {
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
-            },
-            secondaryButtonTitle = "Share",
-            secondaryButtonAction = {
-                Toast.makeText(this, "Download", Toast.LENGTH_SHORT).show()
+        hideNextButton()
+
+        setComposeContent(
+            composable = {
+                Text(
+                    text = "Hello World!",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(50.dp),
+                    style = TextStyle(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = green_primary
+                    ).copy(textAlign = TextAlign.Center)
+                )
             }
         )
 
