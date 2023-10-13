@@ -70,11 +70,8 @@
                     android:id="@+id/imagePreviewPdf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_800"
-                    android:contentDescription="@string/pdf_page_as_image"
-                    android:paddingTop="16dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp" />
+                    android:background="@color/green_light"
+                    android:contentDescription="@string/pdf_page_as_image" />
 
             </tech.okcredit.create_pdf.custom.ZoomLayout>
 
@@ -181,6 +178,11 @@
 
         </LinearLayout>
 
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/compose_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/primary_cta_button"
             android:layout_width="match_parent"
@@ -225,10 +227,5 @@
             android:text="@string/text_generating_pdf"
             android:textSize="@dimen/text_size_large" />
     </LinearLayout>
-
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </FrameLayout>

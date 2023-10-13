@@ -8,11 +8,13 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.HtmlCompat
@@ -40,27 +42,20 @@ class PreviewActivity : PDFCreatorActivity() {
 
         setToolbarTitle("Bill Preview")
 
-        enableCtaButtons(
-            primaryButtonTitle = "Download",
-            primaryButtonAction = {
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
-            },
-            secondaryButtonTitle = "Share",
-            secondaryButtonAction = {
-                Toast.makeText(this, "Download", Toast.LENGTH_SHORT).show()
-            }
-        )
+        hideNextButton()
 
         setComposeContent(
             composable = {
                 Text(
                     text = "Hello World!",
-                    modifier = Modifier.padding(50.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(50.dp),
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = green_primary
-                    )
+                    ).copy(textAlign = TextAlign.Center)
                 )
             }
         )

@@ -55,8 +55,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     private var heightRequiredByFooter = 0
     private var selectedPreviewPage = 0
 
-    private var externalComposable: (@Composable () -> Unit)? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdfcreator)
@@ -84,18 +82,13 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         composeView = findViewById(R.id.compose_view)
     }
 
-    override fun onResume() {
-        super.onResume()
+    fun setComposeContent(composable: @Composable () -> Unit) {
         composeView.apply {
             ViewCompositionStrategy.DisposeOnLifecycleDestroyed(lifecycle = lifecycle)
             setContent {
-                externalComposable?.invoke()
+                composable.invoke()
             }
         }
-    }
-
-    fun setComposeContent(composable: @Composable () -> Unit) {
-        externalComposable = composable
     }
 
     fun hideNextButton() {
