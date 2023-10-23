@@ -35,26 +35,35 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:navigationIcon="@drawable/ic_left"
-            app:title="Title"
-            tools:visibility="visible">
+            android:theme="@style/WhiteActionBar"
+            android:elevation="4dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/toolbar_tail_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="end"
-                android:background="@null"
-                android:padding="12dp"
-                android:src="@drawable/ic_left"
-                android:visibility="gone"/>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:navigationIcon="@drawable/ic_left"
+                app:title="Title"
+                tools:visibility="visible">
 
-        </com.google.android.material.appbar.MaterialToolbar>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/toolbar_tail_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:background="@null"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_left"
+                    android:visibility="gone"/>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,7 +79,8 @@
                     android:id="@+id/imagePreviewPdf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/green_light"
+                    android:padding="8dp"
+                    android:background="@color/grey_200"
                     android:contentDescription="@string/pdf_page_as_image" />
 
             </tech.okcredit.create_pdf.custom.ZoomLayout>
