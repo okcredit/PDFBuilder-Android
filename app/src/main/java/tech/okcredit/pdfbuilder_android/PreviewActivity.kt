@@ -1,15 +1,20 @@
 package tech.okcredit.pdfbuilder_android
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -34,6 +39,7 @@ import tech.okcredit.pdfbuilder_android.PdfBillConstants.PDF_BILL_SEPARATOR_COLO
 import tech.okcredit.pdfbuilder_android.ui.theme.green_primary
 import java.io.File
 
+
 class PreviewActivity : PDFCreatorActivity() {
 
 
@@ -49,17 +55,44 @@ class PreviewActivity : PDFCreatorActivity() {
 
         setBottomUIComposeContent(
             composable = {
-                Text(
-                    text = "Hello World!",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(50.dp),
-                    style = TextStyle(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = green_primary
-                    ).copy(textAlign = TextAlign.Center)
-                )
+                Row {
+                    // Share Button
+                    Button(onClick = {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_SEND_MULTIPLE
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Here are the bill images.")
+                        intent.type = "image/jpeg"
+
+                        val files = ArrayList<Uri>()
+
+                        for (bitmap in pagePreviewBitmapList) {
+                            val bitmapPath: String = MediaStore.Images.Media.insertImage(
+                                contentResolver,
+                                pagePreviewBitmapList[0],
+                                "bill",
+                                "bill image"
+                            )
+                            val bitmapUri = Uri.parse(bitmapPath)
+                            files.add(bitmapUri)
+                        }
+
+                        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files)
+                        startActivity(intent)
+                    }) {
+                        Text(
+                            text = "Share Bill Images",
+                            style = TextStyle(
+                                color = green_primary,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         )
 
@@ -166,7 +199,7 @@ class PreviewActivity : PDFCreatorActivity() {
             Color.parseColor(PDF_BILL_SEPARATOR_COLOR)
         )
 
-        for (i in 0..10) {
+        for (i in 0..100) {
             // Create 10 rows
             val tableRowView = PDFTableRowView(applicationContext)
             for (s in textInTable) {
