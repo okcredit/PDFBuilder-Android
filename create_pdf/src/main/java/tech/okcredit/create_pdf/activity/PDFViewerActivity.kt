@@ -45,7 +45,7 @@ class PDFViewerActivity : AppCompatActivity() {
             return
         }
         try {
-            pdfBitmapList = PDFUtil.pdfToBitmap(pdfFile)
+            pdfBitmapList = PDFUtil.pdfToBitmap(pdfFile, null)
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -21,7 +21,7 @@ class RecyclerPDFViewer : RecyclerView {
 
     fun loadPdf(pdfFile: File?) {
         try {
-            val pdfBitmapList = PDFUtil.pdfToBitmap(pdfFile)
+            val pdfBitmapList = PDFUtil.pdfToBitmap(pdfFile, null)
             var layoutManager = LinearLayoutManager(this.context)
             val snapHelper: SnapHelper = LinearSnapHelper()
             snapHelper.attachToRecyclerView(this)

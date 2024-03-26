@@ -166,7 +166,7 @@ class PreviewActivity : PDFCreatorActivity() {
             Color.parseColor(PDF_BILL_SEPARATOR_COLOR)
         )
 
-        for (i in 0..10) {
+        for (i in 0..50) {
             // Create 10 rows
             val tableRowView = PDFTableRowView(applicationContext)
             for (s in textInTable) {
@@ -216,18 +216,10 @@ class PreviewActivity : PDFCreatorActivity() {
         return footerView
     }
 
-    override fun getWatermarkView(forPage: Int): PDFImageView? {
-        val pdfImageView = PDFImageView(applicationContext)
-        val childLayoutParams = FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            120, Gravity.CENTER
-        )
-        pdfImageView.setLayout(childLayoutParams)
-        pdfImageView.setImageResource(R.drawable.ic_watermark_as_pdf)
-        pdfImageView.setImageScale(ImageView.ScaleType.FIT_CENTER)
-        pdfImageView.view.rotation = -45f
-        pdfImageView.view.alpha = 0.1f
-        return pdfImageView
+    override fun getWatermarkView(): ImageView? {
+        val imageView = ImageView(applicationContext)
+        imageView.setImageResource(R.drawable.ic_watermark_as_pdf)
+        return imageView
     }
 
     override fun onNextClicked(savedPDFFile: File?) {

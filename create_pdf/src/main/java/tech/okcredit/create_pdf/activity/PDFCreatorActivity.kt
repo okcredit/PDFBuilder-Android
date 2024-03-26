@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -25,10 +26,8 @@ import tech.okcredit.create_pdf.utils.PDFUtil.PDFUtilListener
 import tech.okcredit.create_pdf.views.PDFBody
 import tech.okcredit.create_pdf.views.PDFFooterView
 import tech.okcredit.create_pdf.views.PDFHeaderView
-import tech.okcredit.create_pdf.views.basic.PDFImageView
 import tech.okcredit.create_pdf.views.basic.PDFPageBreakView
 import tech.okcredit.create_pdf.views.basic.PDFVerticalView
-import tech.okcredit.create_pdf.views.basic.PDFView
 import java.io.File
 import java.util.Locale
 
@@ -181,7 +180,8 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
             override fun pdfGenerationSuccess(savedPDFFile: File) {
                 try {
                     pagePreviewBitmapList.clear()
-                    pagePreviewBitmapList.addAll(PDFUtil.pdfToBitmap(savedPDFFile))
+                    val watermarkView = getWatermarkView()
+                    pagePreviewBitmapList.addAll(PDFUtil.pdfToBitmap(savedPDFFile, watermarkView))
                     textViewPdfGeneratingLoader!!.visibility = View.GONE
                     layoutPrintPreview!!.visibility = View.VISIBLE
                     selectedPreviewPage = 0
@@ -253,11 +253,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 )
                 pdfPageViewList.add(currentPDFLayout)
 
-                // Add watermark layout
-                var watermarkPDFView: PDFView? = getWatermarkView(0)
-                if (watermarkPDFView != null && watermarkPDFView.view != null) {
-                    currentPDFLayout.addView(watermarkPDFView.view)
-                }
                 var currentPDFView = PDFVerticalView(applicationContext).view
                 val verticalPageLayoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -299,11 +294,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                         pdfPageViewList.add(currentPDFLayout)
                         currentPageHeight = 0
 
-                        // Add watermark layout
-                        watermarkPDFView = getWatermarkView(pageIndex)
-                        if (watermarkPDFView != null && watermarkPDFView.view != null) {
-                            currentPDFLayout.addView(watermarkPDFView.view)
-                        }
                         currentPDFView = PDFVerticalView(applicationContext).view
                         currentPDFView.layoutParams = verticalPageLayoutParams
                         currentPDFLayout.addView(currentPDFView)
@@ -431,7 +421,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
      * @param forPage page number
      * @return PDFImageView or null
      */
-    protected open fun getWatermarkView(forPage: Int): PDFImageView? {
+    protected open fun getWatermarkView(): ImageView? {
         return null
     }
 

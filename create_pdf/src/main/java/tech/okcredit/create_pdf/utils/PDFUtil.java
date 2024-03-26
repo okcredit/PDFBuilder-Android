@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.graphics.pdf.PdfRenderer;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.print.PrintJob;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +24,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import tech.okcredit.create_pdf.views.basic.PDFImageView;
 
 /**
  * A Class used to generate PDF for the given Views.
@@ -85,7 +89,7 @@ public class PDFUtil {
      * @return list of bitmap of every page
      * @throws Exception
      */
-    public static LinkedList<Bitmap> pdfToBitmap(File pdfFile) throws Exception, IllegalStateException {
+    public static LinkedList<Bitmap> pdfToBitmap(File pdfFile, ImageView watermarkView) throws Exception, IllegalStateException {
         if (pdfFile == null || pdfFile.exists() == false) {
             throw new IllegalStateException("PDF File Does Not Exist");
         }
@@ -110,6 +114,24 @@ public class PDFUtil {
 
                 bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+
+                if (watermarkView != null) {
+                    watermarkView.setDrawingCacheEnabled(true);
+                    watermarkView.measure(
+                            View.MeasureSpec.makeMeasureSpec(width/2, View.MeasureSpec.EXACTLY),
+                            View.MeasureSpec.makeMeasureSpec(height/2, View.MeasureSpec.EXACTLY)
+                    );
+                    watermarkView.layout(width/4, height/4, width/4 + watermarkView.getMeasuredWidth(), height/4 + watermarkView.getMeasuredHeight());
+                    watermarkView.buildDrawingCache();
+                    Bitmap watermarkBitmap = watermarkView.getDrawingCache();
+
+                    Paint alphaPaint = new Paint();
+                    alphaPaint.setAlpha(15);
+                    Canvas canvas = new Canvas(bitmap);
+                    canvas.drawBitmap(watermarkBitmap, (float) width /4, (float) height /4, alphaPaint);
+                }
+
 
                 bitmaps.add(bitmap);
 
