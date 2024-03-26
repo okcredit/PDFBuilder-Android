@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.graphics.pdf.PdfRenderer;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.print.PrintJob;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +24,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import tech.okcredit.create_pdf.views.basic.PDFImageView;
 
 /**
  * A Class used to generate PDF for the given Views.
@@ -110,6 +114,7 @@ public class PDFUtil {
 
                 bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
 
                 bitmaps.add(bitmap);
 
