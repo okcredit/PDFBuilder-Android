@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -141,6 +142,10 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             toolbarTailIcon.visibility = View.GONE
         }
+    }
+
+    fun setBackgroundColor(@ColorInt color: Int) {
+        imageViewPDFPreview?.setBackgroundColor(color)
     }
 
     fun createPDF(fileName: String, pdfUtilListener: PDFUtilListener) {
