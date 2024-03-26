@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -25,10 +26,8 @@ import tech.okcredit.create_pdf.utils.PDFUtil.PDFUtilListener
 import tech.okcredit.create_pdf.views.PDFBody
 import tech.okcredit.create_pdf.views.PDFFooterView
 import tech.okcredit.create_pdf.views.PDFHeaderView
-import tech.okcredit.create_pdf.views.basic.PDFImageView
 import tech.okcredit.create_pdf.views.basic.PDFPageBreakView
 import tech.okcredit.create_pdf.views.basic.PDFVerticalView
-import tech.okcredit.create_pdf.views.basic.PDFView
 import java.io.File
 import java.util.Locale
 
@@ -148,7 +147,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         imageViewPDFPreview?.setBackgroundColor(color)
     }
 
-    fun createPDF(fileName: String, pdfUtilListener: PDFUtilListener) {
+    fun createPDF(fileName: String, pdfUtilListener: PDFUtilListener, @DrawableRes watermarkDrawable: Int? = null) {
         val bodyViewList = ArrayList<View?>()
         var header: View? = null
         if (getHeaderView(0) != null) {
@@ -177,7 +176,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
             footer.setTag(PDFFooterView::class.java.simpleName)
             addViewToTempLayout(layoutPageParent, footer)
         }
-        createPDFFromViewList(header, footer, bodyViewList, fileName, object : PDFUtilListener {
+        createPDFFromViewList(header, footer, watermarkDrawable, bodyViewList, fileName, object : PDFUtilListener {
             override fun pdfGenerationSuccess(savedPDFFile: File) {
                 try {
                     pagePreviewBitmapList.clear()
@@ -224,6 +223,7 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
     private fun createPDFFromViewList(
         headerView: View?,
         footerView: View?,
+        @DrawableRes watermarkDrawable: Int?,
         tempViewList: ArrayList<View?>,
         filename: String,
         pdfUtilListener: PDFUtilListener
@@ -253,11 +253,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 )
                 pdfPageViewList.add(currentPDFLayout)
 
-                // Add watermark layout
-                var watermarkPDFView: PDFView? = getWatermarkView(0)
-                if (watermarkPDFView != null && watermarkPDFView.view != null) {
-                    currentPDFLayout.addView(watermarkPDFView.view)
-                }
                 var currentPDFView = PDFVerticalView(applicationContext).view
                 val verticalPageLayoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -265,6 +260,12 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                 )
                 currentPDFView.layoutParams = verticalPageLayoutParams
                 currentPDFLayout.addView(currentPDFView)
+
+                val watermarkViewForFirstPage = getWatermarkViewFromDrawable(watermarkDrawable)
+                if (watermarkViewForFirstPage != null) {
+                    currentPDFLayout.addView(watermarkViewForFirstPage)
+                }
+
                 var currentPageHeight = 0
                 if (headerView != null) {
                     // If item is a page header, store its height so we can add it to all pages without waiting to render it every time
@@ -299,14 +300,14 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
                         pdfPageViewList.add(currentPDFLayout)
                         currentPageHeight = 0
 
-                        // Add watermark layout
-                        watermarkPDFView = getWatermarkView(pageIndex)
-                        if (watermarkPDFView != null && watermarkPDFView.view != null) {
-                            currentPDFLayout.addView(watermarkPDFView.view)
-                        }
                         currentPDFView = PDFVerticalView(applicationContext).view
                         currentPDFView.layoutParams = verticalPageLayoutParams
                         currentPDFLayout.addView(currentPDFView)
+
+                        val watermarkViewForOtherPage = getWatermarkViewFromDrawable(watermarkDrawable)
+                        if (watermarkViewForFirstPage != null) {
+                            currentPDFLayout.addView(watermarkViewForOtherPage)
+                        }
 
                         // Add page header again
                         if (heightRequiredByHeader > 0) {
@@ -371,6 +372,18 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
         layoutPageParent!!.addView(viewToAdd)
     }
 
+    private fun getWatermarkViewFromDrawable(@DrawableRes watermarkDrawable: Int?): ImageView? {
+        if (watermarkDrawable == null) {
+            return null
+        }
+        val imageView = ImageView(applicationContext)
+        imageView.setImageResource(watermarkDrawable)
+        imageView.scaleX = 0.75f
+        imageView.scaleY = 0.75f
+        imageView.alpha = 0.1f
+        return imageView
+    }
+
     override fun onClick(v: View) {
         if (v === buttonNextPage) {
             if (selectedPreviewPage == pagePreviewBitmapList.size - 1) {
@@ -424,16 +437,6 @@ abstract class PDFCreatorActivity : AppCompatActivity(), View.OnClickListener {
      * @return View for header
      */
     protected abstract fun getFooterView(forPage: Int): PDFFooterView
-
-    /**
-     * Can add watermark images to per page, starts with page: 0
-     *
-     * @param forPage page number
-     * @return PDFImageView or null
-     */
-    protected open fun getWatermarkView(forPage: Int): PDFImageView? {
-        return null
-    }
 
     protected abstract fun onNextClicked(savedPDFFile: File?)
 
