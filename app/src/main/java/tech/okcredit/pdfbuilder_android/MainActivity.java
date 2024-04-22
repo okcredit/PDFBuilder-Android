@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                         // Open Pdf Viewer
                         Uri pdfUri = Uri.fromFile(savedPDFFile);
 
-                        Intent intentPdfViewer = new Intent(MainActivity.this, PDFViewerActivity.class);
+                        Intent intentPdfViewer = new Intent(MainActivity.this, PdfPreviewActivity.class);
                         intentPdfViewer.putExtra(PDFViewerActivity.PDF_FILE_URI, pdfUri);
 
                         startActivity(intentPdfViewer);

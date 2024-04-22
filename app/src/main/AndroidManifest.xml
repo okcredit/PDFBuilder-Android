@@ -29,6 +29,12 @@
         </activity>
 
         <activity
+            android:name="tech.okcredit.pdfbuilder_android.PdfPreviewActivity"
+            android:exported="true"
+            android:theme="@style/ActivityTheme">
+        </activity>
+
+        <activity
             android:name="tech.okcredit.create_pdf.activity.PDFViewerActivity"
             android:exported="true"
             android:theme="@style/ActivityTheme">

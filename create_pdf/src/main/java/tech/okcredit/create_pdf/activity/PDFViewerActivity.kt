@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -23,6 +26,8 @@ import java.util.Locale
 open class PDFViewerActivity : AppCompatActivity() {
     var pdfFile: File? = null
         private set
+
+    lateinit var composeView: ComposeView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +60,16 @@ open class PDFViewerActivity : AppCompatActivity() {
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         viewPager.setPageTransformer(true, ZoomOutPageTransformer())
+        composeView = findViewById(R.id.compose_view)
+    }
+
+    fun setBottomUIComposeContent(composable: @Composable () -> Unit) {
+        composeView.apply {
+            ViewCompositionStrategy.DisposeOnLifecycleDestroyed(lifecycle = lifecycle)
+            setContent {
+                composable.invoke()
+            }
+        }
     }
 
     private class PDFViewerPagerAdapter(fm: FragmentManager, behavior: Int) :
