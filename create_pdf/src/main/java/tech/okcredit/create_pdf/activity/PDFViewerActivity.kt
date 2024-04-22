@@ -20,7 +20,7 @@ import java.io.File
 import java.util.LinkedList
 import java.util.Locale
 
-class PDFViewerActivity : AppCompatActivity() {
+open class PDFViewerActivity : AppCompatActivity() {
     var pdfFile: File? = null
         private set
 
