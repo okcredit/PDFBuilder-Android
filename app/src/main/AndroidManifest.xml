@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PDFBuilderAndroid"
         tools:targetApi="31">
         <activity
-            android:name="tech.okcredit.pdfbuilder_android.PreviewActivity"
+            android:name="tech.okcredit.pdfbuilder_android.MainActivity"
             android:exported="true"
             android:theme="@style/ActivityTheme">
             <intent-filter>
@@ -21,6 +21,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="tech.okcredit.pdfbuilder_android.PreviewActivity"
+            android:exported="true"
+            android:theme="@style/ActivityTheme">
+        </activity>
+
+        <activity
+            android:name="tech.okcredit.create_pdf.activity.PDFViewerActivity"
+            android:exported="true"
+            android:theme="@style/ActivityTheme">
         </activity>
     </application>
 
