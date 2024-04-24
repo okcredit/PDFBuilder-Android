@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.tejpratapsingh.pdfcreator.custom.TouchImageViewFling
+    <tech.okcredit.create_pdf.custom.TouchImageViewFling
         android:id="@+id/imageViewItemPdfViewer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_800"
+        android:background="@color/colorWhite"
         android:contentDescription="@string/pdf_page_as_image" />
 
     <LinearLayout
